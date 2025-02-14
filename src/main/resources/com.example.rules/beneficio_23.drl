@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_23"
+    salience 6
+when
+    $person: PersonDTO( age >= 60, healthCondition == "Boa" )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Benefício de Saúde");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Saúde para: " + $person.getName());
+end

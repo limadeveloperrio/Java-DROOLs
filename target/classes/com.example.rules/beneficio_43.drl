@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_43"
+    salience 5
+when
+    $person: PersonDTO( age > 40, income < 3000.0, maritalStatus == "Casado" )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Auxílio Família");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Auxílio Família para: " + $person.getName());
+end

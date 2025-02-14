@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_22"
+    salience 8
+when
+    $person: PersonDTO( age >= 50, yearsWorked >= 25, isWorking == true )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Bonificação por Tempo de Serviço");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Bonificação por Tempo de Serviço para: " + $person.getName());
+end

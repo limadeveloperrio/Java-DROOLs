@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_32"
+    salience 5
+when
+    $person: PersonDTO( age >= 65, disabilityStatus == true, income < 2000.0 )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Pensão por Invalidez");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Pensão por Invalidez para: " + $person.getName());
+end

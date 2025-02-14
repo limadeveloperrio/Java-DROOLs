@@ -1,0 +1,14 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "Benefício para Trabalhadores de Baixa Renda"
+when
+    $p : PersonDTO(isWorking == true && income < 1500.0)
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Auxílio Baixa Renda");
+    $b.setHasBenefit(true);
+    $p.addLisBenefit($b);  
+end

@@ -1,0 +1,15 @@
+// Arquivo 1: beneficio_01.drl
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "Benefício para Idosos"
+when
+    $p : PersonDTO(age >= 65)
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Aposentadoria Especial");
+    $b.setHasBenefit(true);
+    $p.addLisBenefit($b);  
+end

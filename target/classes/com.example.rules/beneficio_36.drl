@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_36"
+    salience 5
+when
+    $person: PersonDTO( age > 30, age <= 50, income > 4000.0, maritalStatus == "Casado" )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Plano de Previdência Familiar");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Plano de Previdência Familiar para: " + $person.getName());
+end

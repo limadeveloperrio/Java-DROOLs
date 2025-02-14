@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_39"
+    salience 5
+when
+    $person: PersonDTO( income > 3000.0, isWorking == true, healthCondition == "Boa", maritalStatus == "Solteiro" )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Assistência Médica Avançada");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Assistência Médica Avançada para: " + $person.getName());
+end

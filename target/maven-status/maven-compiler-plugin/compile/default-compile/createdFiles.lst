@@ -1,0 +1,6 @@
+com\motor\decision\dto\BenefitDTO.class
+com\motor\decision\service\DroolsService.class
+com\motor\decision\rest\PersonRest.class
+TestDecisionEngine.class
+com\motor\decision\dto\PersonDTO.class
+com\motor\decision\App.class

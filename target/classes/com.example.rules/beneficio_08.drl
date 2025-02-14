@@ -1,0 +1,14 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "Benefício para Casais com Baixa Renda"
+when
+    $p : PersonDTO(isWorking == true && income < 2000.0 && maritalStatus == "Casado")
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Auxílio Casal de Baixa Renda");
+    $b.setHasBenefit(true);
+    $p.addLisBenefit($b);  
+end

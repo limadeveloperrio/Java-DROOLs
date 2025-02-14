@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_20"
+    salience 1
+when
+    $person: PersonDTO( income < 1500.0, isWorking == true )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Auxílio Renda Baixa");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Auxílio Renda Baixa para: " + $person.getName());
+end

@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_13"
+    salience 8
+when
+    $person: PersonDTO( age < 60, isWorking == false, creditScore >= 700 )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Benefício de Desemprego");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Desemprego para: " + $person.getName());
+end

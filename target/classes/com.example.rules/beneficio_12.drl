@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_12"
+    salience 9
+when
+    $person: PersonDTO( age >= 60, isWorking == false, creditScore >= 650 )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Aposentadoria");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Aposentadoria para: " + $person.getName());
+end

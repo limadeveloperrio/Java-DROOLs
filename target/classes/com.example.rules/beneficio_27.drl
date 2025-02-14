@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_27"
+    salience 5
+when
+    $person: PersonDTO( age >= 30, age <= 45, income > 3000.0, isWorking == true )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Seguro de Vida Trabalhista");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Seguro de Vida Trabalhista para: " + $person.getName());
+end

@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_34"
+    salience 5
+when
+    $person: PersonDTO( age > 50, income > 2000.0, maritalStatus == "Viúvo" )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Pensão por Morte");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Pensão por Morte para: " + $person.getName());
+end

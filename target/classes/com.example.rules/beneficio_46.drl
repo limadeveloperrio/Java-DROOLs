@@ -1,0 +1,15 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "Conceder Benefício A"
+when
+    $p : PersonDTO(isWorking == false)
+then   
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Auxílio Desemprego");
+    $b.setHasBenefit(true);
+    $p.addLisBenefit($b);  
+end
+

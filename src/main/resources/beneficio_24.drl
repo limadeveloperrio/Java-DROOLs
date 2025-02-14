@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "beneficio_24"
+    salience 7
+when
+    $person: PersonDTO( educationLevel == "Ensino Superior", income >= 5000.0 )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Benefício de Carreira");
+    $b.setHasBenefit(true);
+    $person.addLisBenefit($b);
+    System.out.println("Benefício de Carreira para: " + $person.getName());
+end

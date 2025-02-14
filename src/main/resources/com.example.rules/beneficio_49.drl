@@ -1,0 +1,16 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "Conceder Benefício D"
+when
+    $p : PersonDTO(sex == "M" && age < 18 && isWorking == false)
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Auxílio Homem Jovem");
+    $b.setHasBenefit(true);
+    $p.addLisBenefit($b);  
+end
+
+

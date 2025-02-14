@@ -1,0 +1,14 @@
+package com.example.rules;
+
+import com.motor.decision.dto.PersonDTO;
+import com.motor.decision.dto.BenefitDTO;
+
+rule "Benefício para Estudantes Universitários"
+when
+    $p : PersonDTO(student == true && educationLevel == "Ensino Superior")
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Bolsa Universitária");
+    $b.setHasBenefit(true);
+    $p.addLisBenefit($b);  
+end
