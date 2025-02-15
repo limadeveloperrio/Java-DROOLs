@@ -9,7 +9,7 @@ when
     $person: PersonDTO( age >= 65, income < 3000.0, retired == true )
 then
     BenefitDTO $b = new BenefitDTO();
-    $b.setBenefit("Pensão de Aposentadoria");
+    $b.setBenefit("Pensão de Aposentadoria menor que 65 anos");
     $b.setRule("beneficio_16.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);   
@@ -21,7 +21,7 @@ when
     $person: PersonDTO( age < 65 || income > 3000.0 || retired == false )
 then
     BenefitDTO $b = new BenefitDTO();
-    $b.setBenefit("Pensão de Aposentadoria");
+    $b.setBenefit("Pensão de Aposentadoria menor que 65 anos");
     $b.setRule("beneficio_16.drl");
     $b.setHasBenefit(false);
     $person.addLisBenefitNot($b);   

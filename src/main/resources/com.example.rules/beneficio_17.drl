@@ -9,7 +9,7 @@ when
     $person: PersonDTO( age < 18, isWorking == false, hasChildren == true )
 then
     BenefitDTO $b = new BenefitDTO();
-    $b.setBenefit("Bolsa Família");
+    $b.setBenefit("Bolsa Família pais menor de idade");
     $b.setRule("beneficio_17.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
@@ -21,7 +21,7 @@ when
     $person: PersonDTO( age > 18 || isWorking == true || hasChildren == false )
 then
     BenefitDTO $b = new BenefitDTO();
-    $b.setBenefit("Bolsa Família");
+    $b.setBenefit("Bolsa Família pais menor de idade");
     $b.setRule("beneficio_17.drl");
     $b.setHasBenefit(false);
     $person.addLisBenefitNot($b);
