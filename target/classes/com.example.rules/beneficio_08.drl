@@ -9,6 +9,18 @@ when
 then
     BenefitDTO $b = new BenefitDTO();  
     $b.setBenefit("Auxílio Casal de Baixa Renda");
+    $b.setRule("beneficio_08.drl");
     $b.setHasBenefit(true);
     $p.addLisBenefit($b);  
+end
+
+rule "Sem Benefício para Casais com Baixa Renda"
+when
+    $p : PersonDTO(isWorking == false || income > 2000.0 || maritalStatus != "Casado")
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Auxílio Casal de Baixa Renda");
+    $b.setRule("beneficio_08.drl");
+    $b.setHasBenefit(false);
+    $p.addLisBenefitNot($b);  
 end

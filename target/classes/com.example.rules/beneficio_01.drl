@@ -10,6 +10,18 @@ when
 then
     BenefitDTO $b = new BenefitDTO();  
     $b.setBenefit("Aposentadoria Especial");
+    $b.setRule("beneficio_01.drl");
     $b.setHasBenefit(true);
     $p.addLisBenefit($b);  
+end
+
+rule "Sem Benefício para Idosos"
+when
+    $p : PersonDTO(age < 65)
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Aposentadoria Especial");
+    $b.setRule("beneficio_01.drl");
+    $b.setHasBenefit(false);
+    $p.addLisBenefitNot($b);  
 end

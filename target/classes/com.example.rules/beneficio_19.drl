@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Bolsa Estudante");
+    $b.setRule("beneficio_19.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Bolsa Estudante para: " + $person.getName());
+end
+
+rule "sem beneficio_19"
+    salience 2
+when
+    $person: PersonDTO( educationLevel != "Ensino Médio" || student != true )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Bolsa Estudante");
+    $b.setRule("beneficio_19.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

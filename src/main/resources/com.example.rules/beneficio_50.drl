@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Benefício de Aposentadoria para Baixa Renda");
+    $b.setRule("beneficio_50.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Aposentadoria para Baixa Renda para: " + $person.getName());
+end
+
+rule "sem beneficio_50"
+    salience 5
+when
+    $person: PersonDTO( age < 55 || income > 2000.0 || hasChildren == true || retired == false )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Benefício de Aposentadoria para Baixa Renda");
+    $b.setRule("beneficio_50.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

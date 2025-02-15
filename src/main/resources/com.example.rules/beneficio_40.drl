@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Plano de Aposentadoria Privada");
+    $b.setRule("beneficio_40.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Plano de Aposentadoria Privada para: " + $person.getName());
+end
+
+rule "sem beneficio_40"
+    salience 5
+when
+    $person: PersonDTO( age < 50 || income < 3000.0 || retired == true || maritalStatus != "Casado" )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Plano de Aposentadoria Privada");
+    $b.setRule("beneficio_40.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Assistência Médica Avançada");
+    $b.setRule("beneficio_39.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Assistência Médica Avançada para: " + $person.getName());
+end
+
+rule "sem beneficio_39"
+    salience 5
+when
+    $person: PersonDTO( income < 3000.0 || isWorking == false || healthCondition != "Boa" || maritalStatus != "Solteiro" )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Assistência Médica Avançada");
+    $b.setRule("beneficio_39.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Benefício de Saúde");
+    $b.setRule("beneficio_23.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Saúde para: " + $person.getName());
+end
+
+rule "sem beneficio_23"
+    salience 6
+when
+    $person: PersonDTO( age < 60 || healthCondition != "Boa" )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Benefício de Saúde");
+    $b.setRule("beneficio_23.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

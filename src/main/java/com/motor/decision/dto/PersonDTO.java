@@ -24,9 +24,11 @@ public class PersonDTO {
 	private int creditScore;
 	private Boolean retired;
     private List<BenefitDTO> LisBenefit;
+    private List<BenefitDTO> LisBenefitNot;
 
     public PersonDTO() {
     	this.LisBenefit = new ArrayList<BenefitDTO>();
+    	this.LisBenefitNot = new ArrayList<BenefitDTO>();
     }
 
     // Getters e Setters
@@ -68,6 +70,14 @@ public class PersonDTO {
 
 	public List<BenefitDTO> getLisBenefit() {
 		return LisBenefit;
+	}
+	
+    public void addLisBenefitNot(BenefitDTO dtoNot) {
+    	LisBenefitNot.add(dtoNot);
+    }
+
+	public List<BenefitDTO> getListBenefitNot() {
+		return LisBenefitNot;
 	}
 
 	public void setLisBenefit(List<BenefitDTO> lisBenefit) {
@@ -219,6 +229,7 @@ public class PersonDTO {
 	      .append(", creditScore=").append(creditScore)
 	      .append(", isRetired=").append(retired)
 	      .append(", LisBenefit=").append(LisBenefit)
+	      .append(", LisBenefitNOT=").append(LisBenefitNot)
 	      .append(" }");
 	    return sb.toString();
 	}

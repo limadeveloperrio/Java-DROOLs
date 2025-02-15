@@ -10,7 +10,20 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Aposentadoria");
+    $b.setRule("beneficio_12.drl");
     $b.setHasBenefit(true);
-    $person.addLisBenefit($b);
-    System.out.println("Benefício de Aposentadoria para: " + $person.getName());
+    $person.addLisBenefit($b);    
 end
+
+rule "sem beneficio_12"
+    salience 9
+when
+    $person: PersonDTO( age < 60 || isWorking == true || creditScore < 650 )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Aposentadoria");
+    $b.setRule("beneficio_12.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);    
+end
+

@@ -9,6 +9,18 @@ when
 then
     BenefitDTO $b = new BenefitDTO();  
     $b.setBenefit("Bolsa Universitária");
+    $b.setRule("beneficio_02.drl");
     $b.setHasBenefit(true);
     $p.addLisBenefit($b);  
+end
+
+rule "sem Benefício para Estudantes Universitários"
+when
+   $p : PersonDTO(student == false || educationLevel != "Ensino Superior")
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Bolsa Universitária");
+    $b.setRule("beneficio_02.drl");
+    $b.setHasBenefit(false);
+    $p.addLisBenefitNot($b);  
 end

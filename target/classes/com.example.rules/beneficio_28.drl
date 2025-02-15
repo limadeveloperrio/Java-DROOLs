@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Auxílio Aposentadoria");
+    $b.setRule("beneficio_28.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Auxílio Aposentadoria para: " + $person.getName());
+end
+
+rule "sem beneficio_28"
+    salience 5
+when
+    $person: PersonDTO( age < 60 || retired == false || income > 2500.0 )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Auxílio Aposentadoria");
+    $b.setRule("beneficio_28.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

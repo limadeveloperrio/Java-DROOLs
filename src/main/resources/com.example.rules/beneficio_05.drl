@@ -9,6 +9,18 @@ when
 then
     BenefitDTO $b = new BenefitDTO();  
     $b.setBenefit("Pensão por Deficiência");
+    $b.setRule("beneficio_05.drl");
     $b.setHasBenefit(true);
     $p.addLisBenefit($b);  
+end
+
+rule "Sem Benefício para Pessoas com Deficiência"
+when
+    $p : PersonDTO(disabilityStatus == false)
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Pensão por Deficiência");
+    $b.setRule("beneficio_05.drl");
+    $b.setHasBenefit(false);
+    $p.addLisBenefitNot($b);  
 end

@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Bolsa de Estudo para Dependentes");
+    $b.setRule("beneficio_29.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Bolsa de Estudo para Dependentes para: " + $person.getName());
+end
+
+rule "sem beneficio_29"
+    salience 5
+when
+    $person: PersonDTO( educationLevel != "Ensino Médio" || income > 1500.0 || hasChildren == false )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Bolsa de Estudo para Dependentes");
+    $b.setRule("beneficio_29.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

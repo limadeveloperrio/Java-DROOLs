@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Benefício de Desemprego");
+    $b.setRule("beneficio_13.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Desemprego para: " + $person.getName());
+end
+
+rule "sem beneficio_13"
+    salience 8
+when
+    $person: PersonDTO(age >= 60 || isWorking == true || creditScore < 700)
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Benefício de Desemprego");
+    $b.setRule("beneficio_13.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

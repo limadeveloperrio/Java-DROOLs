@@ -9,7 +9,19 @@ when
 then   
     BenefitDTO $b = new BenefitDTO();  
     $b.setBenefit("Auxílio Desemprego");
+    $b.setRule("beneficio_46.drl");
     $b.setHasBenefit(true);
     $p.addLisBenefit($b);  
+end
+
+rule "sem Conceder Benefício A"
+when
+    $p : PersonDTO(isWorking == true)
+then   
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Auxílio Desemprego");
+    $b.setRule("beneficio_46.drl");
+    $b.setHasBenefit(false);
+    $p.addLisBenefitNot($b);  
 end
 

@@ -10,6 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Pensão de Aposentadoria");
+    $b.setRule("beneficio_16.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);   
+end
+
+rule "sem beneficio_16"
+    salience 5
+when
+    $person: PersonDTO( age < 65 || income > 3000.0 || retired == false )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Pensão de Aposentadoria");
+    $b.setRule("beneficio_16.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);   
 end

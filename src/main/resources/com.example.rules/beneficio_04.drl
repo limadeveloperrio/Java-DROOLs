@@ -9,6 +9,18 @@ when
 then
     BenefitDTO $b = new BenefitDTO();  
     $b.setBenefit("Auxílio Baixa Renda");
+    $b.setRule("beneficio_04.drl");
     $b.setHasBenefit(true);
     $p.addLisBenefit($b);  
+end
+
+rule "Sem Benefício para Trabalhadores de Baixa Renda"
+when
+    $p : PersonDTO(isWorking == false || income > 1500.0)
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Auxílio Baixa Renda");
+    $b.setRule("beneficio_04.drl");
+    $b.setHasBenefit(false);
+    $p.addLisBenefitNot($b);  
 end

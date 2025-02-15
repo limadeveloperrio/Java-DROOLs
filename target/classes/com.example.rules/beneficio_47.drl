@@ -9,8 +9,20 @@ when
 then
     BenefitDTO $b = new BenefitDTO();  
     $b.setBenefit("Auxílio Idoso");
+    $b.setRule("beneficio_47.drl");
     $b.setHasBenefit(true);
     $p.addLisBenefit($b);  
+end
+
+rule "sem Conceder Benefício B"
+when
+    $p : PersonDTO(age < 65)
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Auxílio Idoso");
+    $b.setRule("beneficio_47.drl");
+    $b.setHasBenefit(false);
+    $p.addLisBenefitNot($b);  
 end
 
 

@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Auxílio Formação Profissional");
+    $b.setRule("beneficio_31.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Auxílio Formação Profissional para: " + $person.getName());
+end
+
+rule "sem beneficio_31"
+    salience 5
+when
+    $person: PersonDTO( age > 35 || income < 3000.0 || hasChildren == true )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Auxílio Formação Profissional");
+    $b.setRule("beneficio_31.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

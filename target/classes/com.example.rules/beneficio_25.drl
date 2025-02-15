@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Auxílio Maternidade");
+    $b.setRule("beneficio_25.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Auxílio Maternidade para: " + $person.getName());
+end
+
+rule "Sem beneficio_25"
+    salience 9
+when
+    $person: PersonDTO( age < 35 || maritalStatus != "Casada" || numChildren < 2 )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Auxílio Maternidade");
+    $b.setRule("beneficio_25.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

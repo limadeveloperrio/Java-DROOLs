@@ -9,6 +9,18 @@ when
 then
     BenefitDTO $b = new BenefitDTO();  
     $b.setBenefit("Aposentadoria por Tempo de Contribuição");
+    $b.setRule("beneficio_06.drl");
     $b.setHasBenefit(true);
     $p.addLisBenefit($b);  
+end
+
+rule "Sem Benefício para Trabalhadores com Anos de Contribuição"
+when
+    $p : PersonDTO(isWorking == false || yearsWorked < 30)
+then
+    BenefitDTO $b = new BenefitDTO();  
+    $b.setBenefit("Aposentadoria por Tempo de Contribuição");
+    $b.setRule("beneficio_06.drl");
+    $b.setHasBenefit(false);
+    $p.addLisBenefitNot($b);  
 end

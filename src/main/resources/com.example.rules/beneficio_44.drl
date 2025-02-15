@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Auxílio Jovem Trabalhador");
+    $b.setRule("beneficio_44.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Auxílio Jovem Trabalhador para: " + $person.getName());
+end
+
+rule "sem beneficio_44"
+    salience 5
+when
+    $person: PersonDTO( age > 35 || income > 2000.0 || retired == true )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Auxílio Jovem Trabalhador");
+    $b.setRule("beneficio_44.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end

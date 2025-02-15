@@ -10,7 +10,19 @@ when
 then
     BenefitDTO $b = new BenefitDTO();
     $b.setBenefit("Benefício de Carreira");
+    $b.setRule("beneficio_24.drl");
     $b.setHasBenefit(true);
     $person.addLisBenefit($b);
-    System.out.println("Benefício de Carreira para: " + $person.getName());
+end
+
+rule "sem beneficio_242"
+    salience 7
+when
+    $person: PersonDTO( educationLevel != "Ensino Superior" || income < 5000.0 )
+then
+    BenefitDTO $b = new BenefitDTO();
+    $b.setBenefit("Benefício de Carreira");
+    $b.setRule("beneficio_24.drl");
+    $b.setHasBenefit(false);
+    $person.addLisBenefitNot($b);
 end
